@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>최은뽀 | Schedule</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <!-- Supabase -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            background: #fffdf2;
+
+            color: #29281f;
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                "Noto Sans KR",
+                sans-serif;
+
+        }
+
+
+        .page {
+
+            width: min(900px, calc(100% - 40px));
+
+            margin: 0 auto;
+
+            padding: 60px 0 100px;
+
+        }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        .header {
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .back {
+
+            display: inline-block;
+
+            margin-bottom: 25px;
+
+            color: #99926f;
+
+            text-decoration: none;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+        }
+
+
+        .back:hover {
+
+            color: #6f693f;
+
+        }
+
+
+        .eyebrow {
+
+            margin-bottom: 8px;
+
+            color: #aaa27a;
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        h1 {
+
+            margin: 0;
+
+            font-size: 42px;
+
+            letter-spacing: -2px;
+
+        }
+
+
+        .description {
+
+            margin-top: 12px;
+
+            color: #99947e;
+
+            font-size: 12px;
+
+        }
+
+
+        /* =========================
+           CALENDAR
+        ========================== */
+
+        .calendar-box {
+
+            padding: 25px;
+
+            border: 1px solid #ebe7cf;
+
+            border-radius: 22px;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 15px 40px rgba(80, 70, 20, 0.05);
+
+        }
+
+
+        .calendar-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .month-title {
+
+            font-size: 21px;
+
+            font-weight: 900;
+
+            letter-spacing: -1px;
+
+        }
+
+
+        .month-buttons {
+
+            display: flex;
+
+            gap: 7px;
+
+        }
+
+
+        .month-button {
+
+            width: 34px;
+
+            height: 34px;
+
+            border: 1px solid #e4dfc4;
+
+            border-radius: 10px;
+
+            background: #fffdf2;
+
+            color: #77704f;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+        }
+
+
+        .month-button:hover {
+
+            background: #f8f2c9;
+
+        }
+
+
+        /* WEEK */
+
+        .weekdays {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(7, 1fr);
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .weekday {
+
+            padding: 8px 0;
+
+            color: #aaa27a;
+
+            text-align: center;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+        }
+
+
+        /* DAYS */
+
+        .calendar-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(7, 1fr);
+
+            gap: 6px;
+
+        }
+
+
+        .calendar-day {
+
+            position: relative;
+
+            min-height: 72px;
+
+            padding: 9px;
+
+            border: 1px solid transparent;
+
+            border-radius: 12px;
+
+            background: #fffefa;
+
+            cursor: pointer;
+
+            transition:
+                background 0.15s,
+                border-color 0.15s,
+                transform 0.15s;
+
+        }
+
+
+        .calendar-day:hover {
+
+            border-color: #e7dfad;
+
+            background: #fffced;
+
+            transform: translateY(-1px);
+
+        }
+
+
+        .calendar-day.empty {
+
+            background: transparent;
+
+            cursor: default;
+
+        }
+
+
+        .calendar-day.empty:hover {
+
+            border-color: transparent;
+
+            background: transparent;
+
+            transform: none;
+
+        }
+
+
+        .day-number {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 27px;
+
+            height: 27px;
+
+            border-radius: 50%;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+        }
+
+
+        /* 오늘 */
+
+        .calendar-day.today
+        .day-number {
+
+            background: #f1d52e;
+
+            color: #4c461d;
+
+        }
+
+
+        /* 선택 */
+
+        .calendar-day.selected {
+
+            border-color: #dccc55;
+
+            background: #fffbea;
+
+        }
+
+
+        .calendar-day.selected
+        .day-number {
+
+            background: #e9cf22;
+
+            color: #403b18;
+
+        }
+
+
+        /* 일정 있는 날짜 */
+
+        .schedule-dot {
+
+            position: absolute;
+
+            bottom: 9px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 5px;
+
+            height: 5px;
+
+            border-radius: 50%;
+
+            background: #d6bd26;
+
+        }
+
+
+        /* 일정 개수 */
+
+        .schedule-count-dot {
+
+            position: absolute;
+
+            right: 8px;
+
+            top: 9px;
+
+            color: #aaa27a;
+
+            font-size: 8px;
+
+            font-weight: 900;
+
+        }
+
+
+        /* =========================
+           SELECTED DAY
+        ========================== */
+
+        .selected-section {
+
+            margin-top: 30px;
+
+        }
+
+
+        .selected-title {
+
+            margin-bottom: 15px;
+
+            font-size: 18px;
+
+            font-weight: 900;
+
+            letter-spacing: -0.7px;
+
+        }
+
+
+        .schedule-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+        }
+
+
+        .schedule-card {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+            padding: 18px;
+
+            border: 1px solid #ebe7cf;
+
+            border-radius: 15px;
+
+            background: #fffefa;
+
+        }
+
+
+        .schedule-time {
+
+            min-width: 62px;
+
+            color: #aaa27a;
+
+            font-size: 11px;
+
+            font-weight: 900;
+
+        }
+
+
+        .schedule-info {
+
+            flex: 1;
+
+            min-width: 0;
+
+        }
+
+
+        .schedule-title {
+
+            color: #29281f;
+
+            font-size: 14px;
+
+            font-weight: 900;
+
+        }
+
+
+        .schedule-platform {
+
+            display: inline-block;
+
+            margin-top: 6px;
+
+            padding: 4px 8px;
+
+            border-radius: 7px;
+
+            background: #f8f4d9;
+
+            color: #817947;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+        }
+
+
+        .empty-message {
+
+            padding: 35px 20px;
+
+            border: 1px dashed #dcd6ae;
+
+            border-radius: 15px;
+
+            color: #99926f;
+
+            text-align: center;
+
+            font-size: 11px;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =========================
+           ALL SCHEDULES
+        ========================== */
+
+        .all-schedule-section {
+
+            margin-top: 45px;
+
+        }
+
+
+        .section-title {
+
+            margin-bottom: 15px;
+
+            font-size: 18px;
+
+            font-weight: 900;
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 600px) {
+
+            .page {
+
+                width: calc(100% - 30px);
+
+                padding-top: 45px;
+
+            }
+
+
+            h1 {
+
+                font-size: 34px;
+
+            }
+
+
+            .calendar-box {
+
+                padding: 15px;
+
+                border-radius: 18px;
+
+            }
+
+
+            .calendar-grid {
+
+                gap: 3px;
+
+            }
+
+
+            .calendar-day {
+
+                min-height: 55px;
+
+                padding: 5px;
+
+                border-radius: 9px;
+
+            }
+
+
+            .day-number {
+
+                width: 24px;
+
+                height: 24px;
+
+                font-size: 10px;
+
+            }
+
+
+            .schedule-dot {
+
+                bottom: 6px;
+
+            }
+
+
+            .schedule-count-dot {
+
+                top: 5px;
+
+                right: 5px;
+
+            }
+
+
+            .weekday {
+
+                font-size: 9px;
+
+            }
+
+
+            .schedule-card {
+
+                gap: 12px;
+
+                padding: 15px;
+
+            }
+
+
+            .schedule-time {
+
+                min-width: 52px;
+
+                font-size: 10px;
+
+            }
+
+
+            .schedule-title {
+
+                font-size: 13px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<main class="page">
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <a
+            href="index.html"
+            class="back"
+        >
+            ← PROFILE
+        </a>
+
+
+        <div class="eyebrow">
+            BROADCAST SCHEDULE
+        </div>
+
+
+        <h1>
+            방송 일정
+        </h1>
+
+
+        <p class="description">
+            최은뽀의 방송 일정을 확인할 수 있어요.
+        </p>
+
+    </header>
+
+
+
+    <!-- CALENDAR -->
+
+    <section class="calendar-box">
+
+
+        <!-- MONTH HEADER -->
+
+        <div class="calendar-header">
+
+            <div
+                id="monthTitle"
+                class="month-title"
+            >
+                2026년 8월
+            </div>
+
+
+            <div class="month-buttons">
+
+                <button
+                    id="prevMonth"
+                    class="month-button"
+                    type="button"
+                >
+                    ‹
+                </button>
+
+
+                <button
+                    id="nextMonth"
+                    class="month-button"
+                    type="button"
+                >
+                    ›
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- WEEK -->
+
+        <div class="weekdays">
+
+            <div class="weekday">일</div>
+            <div class="weekday">월</div>
+            <div class="weekday">화</div>
+            <div class="weekday">수</div>
+            <div class="weekday">목</div>
+            <div class="weekday">금</div>
+            <div class="weekday">토</div>
+
+        </div>
+
+
+
+        <!-- DAYS -->
+
+        <div
+            id="calendarGrid"
+            class="calendar-grid"
+        ></div>
+
+
+    </section>
+
+
+
+    <!-- SELECTED DAY -->
+
+    <section class="selected-section">
+
+
+        <div
+            id="selectedTitle"
+            class="selected-title"
+        >
+            방송 일정
+        </div>
+
+
+        <div
+            id="selectedSchedules"
+            class="schedule-list"
+        >
+
+            <div class="empty-message">
+                날짜를 선택해주세요.
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ALL SCHEDULES -->
+
+    <section class="all-schedule-section">
+
+
+        <div class="section-title">
+            전체 일정
+        </div>
+
+
+        <div
+            id="allSchedules"
+            class="schedule-list"
+        >
+
+            <div class="empty-message">
+                일정을 불러오는 중입니다...
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<script>
+
+
+/* =====================================================
+   SUPABASE
+====================================================== */
+
+const SUPABASE_URL =
+    "https://hqghdlkgaiqddbrtplph.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_PhEaJGuC_SByKrfPhSw2Ng_PC9Vz2Cc";
+
+
+const {
+    createClient
+} = supabase;
+
+
+const db =
+    createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* =====================================================
+   STATE
+====================================================== */
+
+let schedules = [];
+
+let currentDate = new Date();
+
+let selectedDate = null;
+
+
+/* =====================================================
+   ELEMENTS
+====================================================== */
+
+const monthTitle =
+    document.getElementById(
+        "monthTitle"
+    );
+
+const calendarGrid =
+    document.getElementById(
+        "calendarGrid"
+    );
+
+const selectedTitle =
+    document.getElementById(
+        "selectedTitle"
+    );
+
+const selectedSchedules =
+    document.getElementById(
+        "selectedSchedules"
+    );
+
+const allSchedules =
+    document.getElementById(
+        "allSchedules"
+    );
+
+
+/* =====================================================
+   LOAD SUPABASE
+====================================================== */
+
+async function loadSchedules() {
+
+    const {
+        data,
+        error
+    } = await db
+
+        .from("eunppo")
+
+        .select(
+            "id, date, time, title, platform"
+        )
+
+        .order(
+            "date",
+            {
+                ascending: true
+            }
+        )
+
+        .order(
+            "time",
+            {
+                ascending: true
+            }
+        );
+
+
+    if (error) {
+
+        console.error(
+            "Supabase 오류:",
+            error
+        );
+
+
+        allSchedules.innerHTML = `
+
+            <div class="empty-message">
+
+                일정을 불러오지 못했습니다.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    schedules = data || [];
+
+
+    renderCalendar();
+
+    renderAllSchedules();
+
+
+    /*
+     * 오늘 일정이 있다면 오늘을 자동 선택
+     */
+
+    const today =
+        formatDate(
+            new Date()
+        );
+
+
+    const todaySchedule =
+        schedules.some(
+            schedule =>
+                schedule.date === today
+        );
+
+
+    if (todaySchedule) {
+
+        selectDate(today);
+
+    }
+
+}
+
+
+/* =====================================================
+   CALENDAR
+====================================================== */
+
+function renderCalendar() {
+
+    const year =
+        currentDate.getFullYear();
+
+    const month =
+        currentDate.getMonth();
+
+
+    monthTitle.textContent =
+        `${year}년 ${month + 1}월`;
+
+
+    calendarGrid.innerHTML = "";
+
+
+    /*
+     * 이번 달 1일의 요일
+     */
+
+    const firstDay =
+        new Date(
+            year,
+            month,
+            1
+        ).getDay();
+
+
+    /*
+     * 이번 달 마지막 날짜
+     */
+
+    const lastDate =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+
+    /*
+     * 빈칸
+     */
+
+    for (
+        let i = 0;
+        i < firstDay;
+        i++
+    ) {
+
+        const empty =
+            document.createElement(
+                "div"
+            );
+
+        empty.className =
+            "calendar-day empty";
+
+        calendarGrid.appendChild(
+            empty
+        );
+
+    }
+
+
+    /*
+     * 날짜
+     */
+
+    for (
+        let day = 1;
+        day <= lastDate;
+        day++
+    ) {
+
+        const dateString =
+            `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+
+        const dayElement =
+            document.createElement(
+                "div"
+            );
+
+
+        dayElement.className =
+            "calendar-day";
+
+
+        /*
+         * 오늘
+         */
+
+        const today =
+            formatDate(
+                new Date()
+            );
+
+
+        if (
+            dateString === today
+        ) {
+
+            dayElement.classList.add(
+                "today"
+            );
+
+        }
+
+
+        /*
+         * 선택된 날짜
+         */
+
+        if (
+            dateString === selectedDate
+        ) {
+
+            dayElement.classList.add(
+                "selected"
+            );
+
+        }
+
+
+        /*
+         * 해당 날짜 일정
+         */
+
+        const daySchedules =
+            schedules.filter(
+                schedule =>
+                    schedule.date === dateString
+            );
+
+
+        dayElement.innerHTML = `
+
+            <span class="day-number">
+
+                ${day}
+
+            </span>
+
+        `;
+
+
+        /*
+         * 일정이 있다면 표시
+         */
+
+        if (
+            daySchedules.length > 0
+        ) {
+
+            dayElement.innerHTML += `
+
+                <span class="schedule-dot"></span>
+
+            `;
+
+
+            if (
+                daySchedules.length > 1
+            ) {
+
+                dayElement.innerHTML += `
+
+                    <span class="schedule-count-dot">
+
+                        ${daySchedules.length}
+
+                    </span>
+
+                `;
+
+            }
+
+        }
+
+
+        /*
+         * 클릭
+         */
+
+        dayElement.addEventListener(
+            "click",
+            function() {
+
+                selectDate(
+                    dateString
+                );
+
+            }
+        );
+
+
+        calendarGrid.appendChild(
+            dayElement
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   SELECT DATE
+====================================================== */
+
+function selectDate(
+    dateString
+) {
+
+    selectedDate =
+        dateString;
+
+
+    renderCalendar();
+
+
+    const selected =
+        schedules.filter(
+            schedule =>
+                schedule.date ===
+                dateString
+        );
+
+
+    const date =
+        new Date(
+            dateString + "T00:00:00"
+        );
+
+
+    selectedTitle.textContent =
+        `${date.getMonth() + 1}월 ${date.getDate()}일 방송 일정`;
+
+
+    if (
+        selected.length === 0
+    ) {
+
+        selectedSchedules.innerHTML = `
+
+            <div class="empty-message">
+
+                이 날짜에는 예정된 방송이 없습니다.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    selectedSchedules.innerHTML =
+        selected
+            .map(
+                schedule =>
+                    createScheduleCard(
+                        schedule
+                    )
+            )
+            .join("");
+
+}
+
+
+/* =====================================================
+   SCHEDULE CARD
+====================================================== */
+
+function createScheduleCard(
+    schedule
+) {
+
+    return `
+
+        <article class="schedule-card">
+
+
+            <div class="schedule-time">
+
+                ${escapeHtml(
+                    schedule.time || ""
+                )}
+
+            </div>
+
+
+            <div class="schedule-info">
+
+
+                <div class="schedule-title">
+
+                    ${escapeHtml(
+                        schedule.title ||
+                        "방송"
+                    )}
+
+                </div>
+
+
+                <div class="schedule-platform">
+
+                    ${escapeHtml(
+                        schedule.platform ||
+                        "SOOP"
+                    )}
+
+                </div>
+
+
+            </div>
+
+
+        </article>
+
+    `;
+
+}
+
+
+/* =====================================================
+   ALL SCHEDULES
+====================================================== */
+
+function renderAllSchedules() {
+
+    if (
+        schedules.length === 0
+    ) {
+
+        allSchedules.innerHTML = `
+
+            <div class="empty-message">
+
+                등록된 방송 일정이 없습니다.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    allSchedules.innerHTML =
+        schedules
+            .map(
+                schedule =>
+                    createScheduleCard(
+                        schedule
+                    )
+            )
+            .join("");
+
+}
+
+
+/* =====================================================
+   MONTH MOVE
+====================================================== */
+
+document
+    .getElementById(
+        "prevMonth"
+    )
+    .addEventListener(
+        "click",
+        function() {
+
+            currentDate.setMonth(
+                currentDate.getMonth() - 1
+            );
+
+            renderCalendar();
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "nextMonth"
+    )
+    .addEventListener(
+        "click",
+        function() {
+
+            currentDate.setMonth(
+                currentDate.getMonth() + 1
+            );
+
+            renderCalendar();
+
+        }
+    );
+
+
+/* =====================================================
+   DATE FORMAT
+====================================================== */
+
+function formatDate(
+    date
+) {
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+/* =====================================================
+   HTML ESCAPE
+====================================================== */
+
+function escapeHtml(
+    value
+) {
+
+    return String(value)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   START
+====================================================== */
+
+loadSchedules();
+
+
+</script>
+
+
+</body>
+
+</html>

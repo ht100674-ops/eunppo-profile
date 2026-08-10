@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>최은뽀 | Profile</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link
+    rel="stylesheet"
+    href="style.css"
+>
+
+<!-- Supabase -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================== -->
+
+<header class="header">
+
+<div class="header-inner">
+
+    <a href="index.html" class="logo">
+        EUNPPO
+    </a>
+
+
+    <nav class="nav">
+
+        <a
+            href="index.html"
+            class="active"
+        >
+            PROFILE
+        </a>
+
+        <a href="schedule.html">
+            SCHEDULE
+        </a>
+
+        <a href="videos.html">
+            VIDEOS
+        </a>
+
+        <a href="links.html">
+            LINKS
+        </a>
+
+    </nav>
+
+
+    <!-- 관리자 로그인 -->
+
+    <a
+        href="admin.html"
+        class="admin-login"
+    >
+        🔑 LOGIN
+    </a>
+
+</div>
+
+</header>
+
+
+
+
+<!-- =========================
+     MAIN
+========================== -->
+
+<main>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+
+        <div class="hero-background">
+
+            <img
+                src="profile.jpg"
+                alt="최은뽀"
+            >
+
+        </div>
+
+
+        <div class="hero-overlay"></div>
+
+
+        <div class="lemon lemon-1">
+            🍋
+        </div>
+
+        <div class="lemon lemon-2">
+            🍋
+        </div>
+
+
+        <div class="hero-content">
+
+            <p class="eyebrow">
+                STREAMER PROFILE
+            </p>
+
+
+            <h1>
+                최은뽀
+            </h1>
+
+
+            <p class="hero-description">
+
+                최은뽀의 방송 정보와 일정을<br>
+
+                한곳에서 확인할 수 있는 프로필 사이트
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+
+                <a
+                    href="schedule.html"
+                    class="button primary"
+                >
+
+                    <span>
+                        🍋
+                    </span>
+
+                    방송 일정
+
+                </a>
+
+
+                <a
+                    href="links.html"
+                    class="button"
+                >
+
+                    LINKS
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         NEXT STREAM
+    ========================== -->
+
+    <section class="section">
+
+
+        <div class="section-header">
+
+
+            <div>
+
+                <p class="eyebrow">
+                    UPCOMING STREAM
+                </p>
+
+
+                <h2>
+                    다음 방송
+                </h2>
+
+            </div>
+
+
+            <a
+                href="schedule.html"
+                class="more-link"
+            >
+
+                전체 일정 →
+
+            </a>
+
+
+        </div>
+
+
+
+        <div
+            id="nextStream"
+            class="next-stream"
+        >
+
+
+            <div class="stream-date">
+
+                <span
+                    id="streamMonth"
+                    class="stream-month"
+                >
+                    ---
+                </span>
+
+
+                <strong
+                    id="streamDay"
+                >
+                    --
+                </strong>
+
+            </div>
+
+
+
+            <div class="stream-info">
+
+
+                <span class="stream-label">
+                    NEXT STREAM
+                </span>
+
+
+                <h3
+                    id="streamTitle"
+                >
+                    일정을 불러오는 중...
+                </h3>
+
+
+                <p
+                    id="streamDescription"
+                >
+                    잠시만 기다려주세요.
+                </p>
+
+
+            </div>
+
+
+
+            <div class="stream-icon">
+                🍋
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         PROFILE
+    ========================== -->
+
+    <section class="section profile-section">
+
+
+        <div class="section-header">
+
+
+            <div>
+
+                <p class="eyebrow">
+                    ABOUT
+                </p>
+
+
+                <h2>
+                    최은뽀
+                </h2>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="profile-card">
+
+
+            <div class="profile-item">
+
+                <span>
+                    활동명
+                </span>
+
+
+                <strong>
+                    최은뽀
+                </strong>
+
+            </div>
+
+
+
+            <div class="profile-item">
+
+                <span>
+                    방송 플랫폼
+                </span>
+
+
+                <strong>
+                    SOOP
+                </strong>
+
+            </div>
+
+
+
+            <div class="profile-item">
+
+                <span>
+                    주요 콘텐츠
+                </span>
+
+
+                <strong>
+                    소통, 게임
+                </strong>
+
+            </div>
+
+
+
+            <div class="profile-item">
+
+                <span>
+                    활동 시작
+                </span>
+
+
+                <strong>
+                    2017년 07월 07일
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         LINKS
+    ========================== -->
+
+    <section class="section">
+
+
+        <div class="section-header">
+
+
+            <div>
+
+                <p class="eyebrow">
+                    OFFICIAL
+                </p>
+
+
+                <h2>
+                    주요 링크
+                </h2>
+
+            </div>
+
+
+            <a
+                href="links.html"
+                class="more-link"
+            >
+
+                전체 링크 →
+
+            </a>
+
+
+        </div>
+
+
+
+        <div class="links-grid">
+
+
+            <a
+                href="https://www.youtube.com/@eunppo1220"
+                class="link-card"
+            >
+
+                <span class="link-icon">
+                    ▶
+                </span>
+
+
+                <div>
+
+                    <span class="link-label">
+                        YOUTUBE
+                    </span>
+
+
+                    <strong>
+                        최은뽀 유튜브
+                    </strong>
+
+                </div>
+
+
+                <span class="link-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="https://www.youtube.com/@EUNPPOASMR"
+                class="link-card"
+            >
+
+                <span class="link-icon">
+                    ▶
+                </span>
+
+
+                <div>
+
+                    <span class="link-label">
+                        YOUTUBE
+                    </span>
+
+
+                    <strong>
+                        최은뽀 ASMR 유튜브
+                    </strong>
+
+                </div>
+
+
+                <span class="link-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="https://cafe.naver.com/fishmanisland"
+                class="link-card"
+            >
+
+                <span class="link-icon">
+                    ✦
+                </span>
+
+
+                <div>
+
+                    <span class="link-label">
+                        FAN CAFE
+                    </span>
+
+
+                    <strong>
+                        🍋
+                    </strong>
+
+                </div>
+
+
+                <span class="link-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         VIDEOS
+    ========================== -->
+
+    <section class="section">
+
+
+        <div class="section-header">
+
+
+            <div>
+
+                <p class="eyebrow">
+                    LATEST
+                </p>
+
+
+                <h2>
+                    최신 영상
+                </h2>
+
+            </div>
+
+
+            <a
+                href="videos.html"
+                class="more-link"
+            >
+
+                전체 영상 →
+
+            </a>
+
+
+        </div>
+
+
+
+        <div class="video-placeholder">
+
+
+            <div class="video-placeholder-icon">
+                ▶
+            </div>
+
+
+            <h3>
+                최신 영상을 준비하고 있어요
+            </h3>
+
+
+            <p>
+                유튜브 영상이 이곳에 표시됩니다.
+            </p>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer class="footer">
+
+
+    <div class="footer-lemon">
+        🍋
+    </div>
+
+
+    <p>
+        © 2026 EUNPPO PROFILE
+    </p>
+
+
+    <span>
+        Made with lemon & love.
+    </span>
+
+
+</footer>
+
+
+
+<!-- =========================
+     SUPABASE NEXT STREAM
+========================== -->
+
+<script>
+
+
+    /* =========================
+       SUPABASE
+    ========================== */
+
+
+    const SUPABASE_URL =
+        "https://hqghdlkgaiqddbrtplph.supabase.co";
+
+
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_PhEaJGuC_SByKrfPhSw2Ng_PC9Vz2Cc";
+
+
+    const {
+        createClient
+    } = supabase;
+
+
+    const db =
+        createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+
+
+    /* =========================
+       ELEMENTS
+    ========================== */
+
+
+    const streamMonth =
+        document.getElementById(
+            "streamMonth"
+        );
+
+
+    const streamDay =
+        document.getElementById(
+            "streamDay"
+        );
+
+
+    const streamTitle =
+        document.getElementById(
+            "streamTitle"
+        );
+
+
+    const streamDescription =
+        document.getElementById(
+            "streamDescription"
+        );
+
+
+
+    /* =========================
+       LOAD NEXT STREAM
+    ========================== */
+
+
+    async function loadNextStream() {
+
+
+        const today =
+            formatDate(
+                new Date()
+            );
+
+
+        const {
+            data,
+            error
+        } = await db
+
+            .from("eunppo")
+
+            .select(
+                "id, date, time, title, platform"
+            )
+
+            .gte(
+                "date",
+                today
+            )
+
+            .order(
+                "date",
+                {
+                    ascending: true
+                }
+            )
+
+            .order(
+                "time",
+                {
+                    ascending: true
+                }
+            )
+
+            .limit(1);
+
+
+
+        /* =========================
+           ERROR
+        ========================== */
+
+
+        if (error) {
+
+            console.error(
+                "Supabase 오류:",
+                error
+            );
+
+
+            streamMonth.textContent =
+                "---";
+
+
+            streamDay.textContent =
+                "--";
+
+
+            streamTitle.textContent =
+                "일정을 불러오지 못했습니다";
+
+
+            streamDescription.textContent =
+                "잠시 후 다시 확인해주세요.";
+
+
+            return;
+
+        }
+
+
+
+        /* =========================
+           NO SCHEDULE
+        ========================== */
+
+
+        if (
+            !data ||
+            data.length === 0
+        ) {
+
+            streamMonth.textContent =
+                "---";
+
+
+            streamDay.textContent =
+                "--";
+
+
+            streamTitle.textContent =
+                "방송 일정이 없습니다";
+
+
+            streamDescription.textContent =
+                "새로운 방송 일정이 등록되면 이곳에 표시됩니다.";
+
+
+            return;
+
+        }
+
+
+
+        /* =========================
+           NEXT STREAM
+        ========================= */
+
+
+        const schedule =
+            data[0];
+
+
+        const date =
+            new Date(
+                schedule.date +
+                "T00:00:00"
+            );
+
+
+        const month =
+            date.toLocaleString(
+                "en-US",
+                {
+                    month: "short"
+                }
+            ).toUpperCase();
+
+
+        const day =
+            date.getDate();
+
+
+
+        streamMonth.textContent =
+            month;
+
+
+        streamDay.textContent =
+            day;
+
+
+        streamTitle.textContent =
+            schedule.title ||
+            "방송";
+
+
+        streamDescription.textContent =
+            `${schedule.time || ""} · ${schedule.platform || "SOOP"}`;
+
+    }
+
+
+
+    /* =========================
+       DATE FORMAT
+    ========================== */
+
+
+    function formatDate(
+        date
+    ) {
+
+        const year =
+            date.getFullYear();
+
+
+        const month =
+            String(
+                date.getMonth() + 1
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const day =
+            String(
+                date.getDate()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        return `${year}-${month}-${day}`;
+
+    }
+
+
+
+    /* =========================
+       START
+    ========================== */
+
+
+    loadNextStream();
+
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>최은뽀 | Videos</title>
+
+    <link
+        rel="icon"
+        type="image/svg+xml"
+        href="favicon.svg"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+
+    <style>
+
+        /* =========================
+           VIDEOS PAGE
+        ========================== */
+
+        .videos-page {
+            min-height: 100vh;
+            padding-top: 76px;
+        }
+
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .videos-hero {
+            position: relative;
+            overflow: hidden;
+
+            padding: 100px 32px 80px;
+
+            background: linear-gradient(
+                135deg,
+                #fffdf2 0%,
+                #fff8cf 100%
+            );
+
+            border-bottom: 1px solid #ebe7cf;
+        }
+
+
+        .videos-hero-inner {
+            position: relative;
+            z-index: 2;
+
+            width: min(1100px, 100%);
+            margin: 0 auto;
+        }
+
+
+        .videos-hero h1 {
+            margin-top: 8px;
+
+            font-size: clamp(52px, 8vw, 90px);
+            line-height: 0.95;
+
+            letter-spacing: -4px;
+        }
+
+
+        .videos-hero-description {
+            margin-top: 25px;
+
+            color: #77776d;
+            font-size: 14px;
+        }
+
+
+        .videos-hero-lemon {
+            position: absolute;
+
+            top: 50%;
+            right: 10%;
+
+            font-size: 130px;
+            opacity: 0.35;
+
+            transform:
+                translateY(-50%)
+                rotate(18deg);
+        }
+
+
+        /* =========================
+           VIDEO CONTENT
+        ========================== */
+
+        .videos-container {
+            width: min(1100px, calc(100% - 64px));
+
+            margin: 0 auto;
+
+            padding: 80px 0 120px;
+        }
+
+
+        .videos-header {
+            display: flex;
+
+            align-items: flex-end;
+            justify-content: space-between;
+
+            margin-bottom: 35px;
+        }
+
+
+        .videos-header h2 {
+            font-size: 28px;
+
+            line-height: 1.2;
+
+            letter-spacing: -1px;
+        }
+
+
+        .videos-count {
+            color: #aaa27a;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =========================
+           VIDEO GRID
+        ========================== */
+
+        .video-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+
+        /* =========================
+           VIDEO CARD
+        ========================== */
+
+        .video-card {
+            display: block;
+
+            overflow: hidden;
+
+            border: 1px solid #ebe7cf;
+            border-radius: 20px;
+
+            background: #ffffff;
+
+            text-decoration: none;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .video-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 20px 40px
+                rgba(90, 85, 30, 0.1);
+        }
+
+
+        /* =========================
+           THUMBNAIL
+        ========================== */
+
+        .video-thumbnail {
+            position: relative;
+
+            aspect-ratio: 16 / 9;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff8cf,
+                    #f4d84a
+                );
+        }
+
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            transition:
+                transform 0.4s ease;
+        }
+
+
+        .video-card:hover
+        .video-thumbnail img {
+            transform: scale(1.04);
+        }
+
+
+        /* =========================
+           PLAY BUTTON
+        ========================== */
+
+        .play-button {
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            width: 55px;
+            height: 55px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.92
+                );
+
+            color: #34321e;
+
+            font-size: 18px;
+
+            transform:
+                translate(
+                    -50%,
+                    -50%
+                );
+
+            box-shadow:
+                0 8px 25px
+                rgba(50, 45, 10, 0.15);
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .video-card:hover
+        .play-button {
+            transform:
+                translate(
+                    -50%,
+                    -50%
+                )
+                scale(1.08);
+        }
+
+
+        /* =========================
+           VIDEO INFO
+        ========================== */
+
+        .video-info {
+            padding: 20px;
+        }
+
+
+        .video-date {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #aaa27a;
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+        }
+
+
+        .video-title {
+            margin: 0 0 8px;
+
+            color: #25251f;
+
+            font-size: 15px;
+            font-weight: 800;
+
+            line-height: 1.45;
+
+            letter-spacing: -0.3px;
+
+            display: -webkit-box;
+            display: box;
+
+            -webkit-box-orient: vertical;
+            box-orient: vertical;
+
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+
+            overflow: hidden;
+        }
+
+
+        .video-description {
+            margin: 0;
+
+            color: #8b8a80;
+
+            font-size: 11px;
+
+            line-height: 1.6;
+
+            display: -webkit-box;
+            display: box;
+
+            -webkit-box-orient: vertical;
+            box-orient: vertical;
+
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+
+            overflow: hidden;
+        }
+
+
+        /* =========================
+           EMPTY VIDEO
+        ========================== */
+
+        .no-videos {
+            padding: 100px 20px;
+
+            text-align: center;
+
+            border: 1px dashed #dcd6ae;
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fffdf2,
+                    #fff9d9
+                );
+        }
+
+
+        .no-videos-icon {
+            margin-bottom: 15px;
+
+            font-size: 40px;
+        }
+
+
+        .no-videos h2 {
+            margin: 0 0 6px;
+
+            color: #555447;
+
+            font-size: 18px;
+        }
+
+
+        .no-videos p {
+            margin: 0;
+
+            color: #99926f;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 900px) {
+
+            .video-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 18px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .videos-page {
+                padding-top: 65px;
+            }
+
+
+            .videos-hero {
+
+                padding:
+                    70px 20px
+                    60px;
+            }
+
+
+            .videos-hero h1 {
+
+                font-size: 58px;
+
+                letter-spacing: -3px;
+            }
+
+
+            .videos-hero-description {
+
+                font-size: 12px;
+            }
+
+
+            .videos-hero-lemon {
+
+                right: -15px;
+
+                font-size: 90px;
+            }
+
+
+            .videos-container {
+
+                width:
+                    calc(100% - 30px);
+
+                padding:
+                    55px 0 80px;
+            }
+
+
+            .videos-header h2 {
+
+                font-size: 24px;
+            }
+
+
+            .video-grid {
+
+                grid-template-columns: 1fr;
+
+                gap: 18px;
+            }
+
+
+            .video-info {
+
+                padding: 17px;
+            }
+
+
+            .video-title {
+
+                font-size: 14px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <div class="header-inner">
+
+            <a
+                href="index.html"
+                class="logo"
+            >
+                EUNPPO
+            </a>
+
+
+            <nav class="nav">
+
+                <a href="index.html">
+                    PROFILE
+                </a>
+
+                <a href="schedule.html">
+                    SCHEDULE
+                </a>
+
+                <a
+                    href="videos.html"
+                    class="active"
+                >
+                    VIDEOS
+                </a>
+
+                <a href="links.html">
+                    LINKS
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="videos-page">
+
+
+        <!-- HERO -->
+
+        <section class="videos-hero">
+
+            <div class="videos-hero-inner">
+
+                <p class="eyebrow">
+                    VIDEO ARCHIVE
+                </p>
+
+
+                <h1>
+                    영상
+                </h1>
+
+
+                <p class="videos-hero-description">
+
+                    최은뽀의 최신 영상과
+                    방송 기록을 확인할 수 있습니다.
+
+                </p>
+
+            </div>
+
+
+            <div class="videos-hero-lemon">
+                🍋
+            </div>
+
+        </section>
+
+
+
+        <!-- VIDEO CONTENT -->
+
+        <section class="videos-container">
+
+
+            <div class="videos-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        LATEST VIDEOS
+                    </p>
+
+
+                    <h2>
+                        최신 영상
+                    </h2>
+
+                </div>
+
+
+                <span class="videos-count">
+                    5 VIDEOS
+                </span>
+
+            </div>
+
+
+
+            <!-- =========================
+                 VIDEO GRID
+            ========================== -->
+
+            <div class="video-grid">
+
+
+                <!-- VIDEO 1 -->
+
+                <a
+                    href="https://youtu.be/_RnS7qQNZ8E"
+                    class="video-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <div class="video-thumbnail">
+
+                        <img
+                            src="https://img.youtube.com/vi/_RnS7qQNZ8E/maxresdefault.jpg"
+                            alt="최은뽀 영상 1"
+                        >
+
+                        <div class="play-button">
+                            ▶
+                        </div>
+
+                    </div>
+
+
+                    <div class="video-info">
+
+                        <span class="video-date">
+                            YOUTUBE
+                        </span>
+
+
+                        <h3 class="video-title">
+                            🍋취기 (Tipsy) Cover by 최은뽀🍋
+                        </h3>
+
+
+                        <p class="video-description">
+                            영상을 클릭하면 유튜브에서 시청할 수 있습니다.
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- VIDEO 2 -->
+
+                <a
+                    href="https://youtu.be/_FV_7ZYHFWU"
+                    class="video-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <div class="video-thumbnail">
+
+                        <img
+                            src="https://img.youtube.com/vi/_FV_7ZYHFWU/maxresdefault.jpg"
+                            alt="최은뽀 영상 2"
+                        >
+
+                        <div class="play-button">
+                            ▶
+                        </div>
+
+                    </div>
+
+
+                    <div class="video-info">
+
+                        <span class="video-date">
+                            YOUTUBE
+                        </span>
+
+
+                        <h3 class="video-title">
+                            🍋좋아하니까(Sukidakara Korean.) Cover by 최은뽀🍋
+                        </h3>
+
+
+                        <p class="video-description">
+                            영상을 클릭하면 유튜브에서 시청할 수 있습니다.
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- VIDEO 3 -->
+
+                <a
+                    href="https://youtu.be/o9e8O_gxgxo"
+                    class="video-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <div class="video-thumbnail">
+
+                        <img
+                            src="https://img.youtube.com/vi/o9e8O_gxgxo/maxresdefault.jpg"
+                            alt="최은뽀 영상 3"
+                        >
+
+                        <div class="play-button">
+                            ▶
+                        </div>
+
+                    </div>
+
+
+                    <div class="video-info">
+
+                        <span class="video-date">
+                            YOUTUBE
+                        </span>
+
+
+                        <h3 class="video-title">
+                            🍋 Thanks to Cover by. 최은뽀
+                        </h3>
+
+
+                        <p class="video-description">
+                            영상을 클릭하면 유튜브에서 시청할 수 있습니다.
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- VIDEO 4 -->
+
+                <a
+                    href="https://youtu.be/3yvSVLCWuIU"
+                    class="video-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <div class="video-thumbnail">
+
+                        <img
+                            src="https://img.youtube.com/vi/3yvSVLCWuIU/maxresdefault.jpg"
+                            alt="최은뽀 영상 4"
+                        >
+
+                        <div class="play-button">
+                            ▶
+                        </div>
+
+                    </div>
+
+
+                    <div class="video-info">
+
+                        <span class="video-date">
+                            YOUTUBE
+                        </span>
+
+
+                        <h3 class="video-title">
+                            🍋#초절정귀여워 (#超絶かわいい Korean) Cover by 최은뽀🍋
+                        </h3>
+
+
+                        <p class="video-description">
+                            영상을 클릭하면 유튜브에서 시청할 수 있습니다.
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- VIDEO 5 -->
+
+                <a
+                    href="https://youtu.be/YpAn3JK6djA"
+                    class="video-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <div class="video-thumbnail">
+
+                        <img
+                            src="https://img.youtube.com/vi/YpAn3JK6djA/maxresdefault.jpg"
+                            alt="최은뽀 영상 5"
+                        >
+
+                        <div class="play-button">
+                            ▶
+                        </div>
+
+                    </div>
+
+
+                    <div class="video-info">
+
+                        <span class="video-date">
+                            YOUTUBE
+                        </span>
+
+
+                        <h3 class="video-title">
+                            🍋 나만 봄 Cover by. 최은뽀
+                        </h3>
+
+
+                        <p class="video-description">
+                            영상을 클릭하면 유튜브에서 시청할 수 있습니다.
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="footer-lemon">
+            🍋
+        </div>
+
+
+        <p>
+            © 2026 EUNPPO PROFILE
+        </p>
+
+
+        <span>
+            Made with lemon & love.
+        </span>
+
+    </footer>
+
+
+</body>
+
+</html>

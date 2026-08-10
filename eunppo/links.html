@@ -1,0 +1,751 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>최은뽀 | Links</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =========================
+           LINKS PAGE
+        ========================== */
+
+        .links-page {
+            padding-top: 76px;
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .links-hero {
+            position: relative;
+            overflow: hidden;
+
+            padding: 100px 32px 80px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fffdf2 0%,
+                    #fff8cf 100%
+                );
+
+            border-bottom: 1px solid #ebe7cf;
+        }
+
+        .links-hero-inner {
+            width: min(1100px, 100%);
+            margin: 0 auto;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .links-hero h1 {
+            margin-top: 8px;
+
+            font-size: clamp(52px, 8vw, 90px);
+            line-height: 0.95;
+
+            letter-spacing: -4px;
+        }
+
+        .links-hero-description {
+            margin-top: 25px;
+
+            color: #77776d;
+
+            font-size: 14px;
+        }
+
+        .links-hero-lemon {
+            position: absolute;
+
+            right: 10%;
+            top: 50%;
+
+            font-size: 130px;
+
+            opacity: 0.35;
+
+            transform:
+                translateY(-50%)
+                rotate(18deg);
+        }
+
+
+        /* =========================
+           LINKS CONTENT
+        ========================== */
+
+        .links-container {
+            width: min(900px, calc(100% - 64px));
+
+            margin: 0 auto;
+
+            padding: 80px 0 120px;
+        }
+
+
+        .links-section {
+            margin-bottom: 65px;
+        }
+
+        .links-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .links-section-title {
+            margin-bottom: 20px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .links-section-title h2 {
+            font-size: 20px;
+
+            letter-spacing: -0.5px;
+        }
+
+        .links-section-title span {
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           LINK LIST
+        ========================== */
+
+        .link-list {
+            display: flex;
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+        .official-link {
+            min-height: 80px;
+
+            padding: 17px 22px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 18px;
+
+            border: 1px solid #ebe7cf;
+            border-radius: 18px;
+
+            background: #ffffff;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .official-link:hover {
+            transform: translateY(-4px);
+
+            border-color: #f4d84a;
+
+            box-shadow:
+                0 15px 35px rgba(90, 85, 30, 0.08);
+        }
+
+
+        /* 아이콘 */
+
+        .official-link-icon {
+            width: 48px;
+            height: 48px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: #fff8cf;
+
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+
+        /* 텍스트 */
+
+        .official-link-info {
+            flex: 1;
+        }
+
+        .official-link-label {
+            display: block;
+
+            margin-bottom: 2px;
+
+            color: #aaa27a;
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+        }
+
+        .official-link-title {
+            display: block;
+
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .official-link-description {
+            display: block;
+
+            margin-top: 3px;
+
+            color: #999890;
+
+            font-size: 11px;
+        }
+
+
+        /* 화살표 */
+
+        .official-link-arrow {
+            flex-shrink: 0;
+
+            color: #aaa27a;
+
+            font-size: 20px;
+
+            transition:
+                transform 0.2s ease;
+        }
+
+        .official-link:hover .official-link-arrow {
+            transform: translateX(4px);
+
+            color: #7f773e;
+        }
+
+
+        /* =========================
+           PROFILE LINK CARD
+        ========================== */
+
+        .creator-card {
+            padding: 35px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 25px;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff8cf,
+                    #fffdf2
+                );
+
+            border: 1px solid #ebe7cf;
+        }
+
+        .creator-image {
+            width: 90px;
+            height: 90px;
+
+            flex-shrink: 0;
+
+            overflow: hidden;
+
+            border-radius: 50%;
+
+            background: #f4d84a;
+        }
+
+        .creator-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+        }
+
+        .creator-info {
+            flex: 1;
+        }
+
+        .creator-info .eyebrow {
+            margin-bottom: 5px;
+        }
+
+        .creator-info h2 {
+            margin-bottom: 5px;
+
+            font-size: 25px;
+
+            letter-spacing: -1px;
+        }
+
+        .creator-info p {
+            color: #77776d;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 768px) {
+
+            .links-page {
+                padding-top: 65px;
+            }
+
+            .links-hero {
+                padding:
+                    70px 20px
+                    60px;
+            }
+
+            .links-hero h1 {
+                font-size: 58px;
+
+                letter-spacing: -3px;
+            }
+
+            .links-hero-description {
+                font-size: 12px;
+            }
+
+            .links-hero-lemon {
+                right: -15px;
+
+                font-size: 90px;
+            }
+
+            .links-container {
+                width: calc(100% - 30px);
+
+                padding: 55px 0 80px;
+            }
+
+            .official-link {
+                min-height: 72px;
+
+                padding: 13px 15px;
+
+                gap: 12px;
+            }
+
+            .official-link-icon {
+                width: 42px;
+                height: 42px;
+
+                border-radius: 12px;
+
+                font-size: 16px;
+            }
+
+            .official-link-title {
+                font-size: 13px;
+            }
+
+            .official-link-description {
+                font-size: 10px;
+            }
+
+            .creator-card {
+                padding: 22px;
+
+                gap: 16px;
+            }
+
+            .creator-image {
+                width: 65px;
+                height: 65px;
+            }
+
+            .creator-info h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">
+                EUNPPO
+            </a>
+
+            <nav class="nav">
+
+                <a href="index.html">
+                    PROFILE
+                </a>
+
+                <a href="schedule.html">
+                    SCHEDULE
+                </a>
+
+                <a href="videos.html">
+                    VIDEOS
+                </a>
+
+                <a href="links.html" class="active">
+                    LINKS
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="links-page">
+
+
+        <!-- HERO -->
+
+        <section class="links-hero">
+
+            <div class="links-hero-inner">
+
+                <p class="eyebrow">
+                    OFFICIAL LINKS
+                </p>
+
+                <h1>
+                    링크
+                </h1>
+
+                <p class="links-hero-description">
+                    최은뽀와 관련된 공식 채널을 확인할 수 있습니다.
+                </p>
+
+            </div>
+
+            <div class="links-hero-lemon">
+                🍋
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             LINKS
+        ========================== -->
+
+        <section class="links-container">
+
+
+            <!-- CREATOR -->
+
+            <div class="creator-card">
+
+                <div class="creator-image">
+
+                    <img
+                        src="profile.jpg"
+                        alt="최은뽀"
+                    >
+
+                </div>
+
+                <div class="creator-info">
+
+                    <p class="eyebrow">
+                        CREATOR
+                    </p>
+
+                    <h2>
+                        최은뽀
+                    </h2>
+
+                    <p>
+                        공식 채널과 SNS를 한곳에서 확인하세요.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- STREAM -->
+
+            <div class="links-section">
+
+                <div class="links-section-title">
+
+                    <span>🍋</span>
+
+                    <h2>
+                        방송
+                    </h2>
+
+                </div>
+
+
+                <div class="link-list">
+
+
+                    <!-- SOOP -->
+
+                    <a
+                        href="https://www.sooplive.com/station/eunpp0"
+                        class="official-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+
+                        <div class="official-link-icon">
+                            S
+                        </div>
+
+                        <div class="official-link-info">
+
+                            <span class="official-link-label">
+                                STREAM
+                            </span>
+
+                            <span class="official-link-title">
+                                SOOP
+                            </span>
+
+                            <span class="official-link-description">
+                                최은뽀의 라이브 방송
+                            </span>
+
+                        </div>
+
+                        <span class="official-link-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- VIDEO -->
+
+            <div class="links-section">
+
+                <div class="links-section-title">
+
+                    <span>🍋</span>
+
+                    <h2>
+                        영상
+                    </h2>
+
+                </div>
+
+
+                <div class="link-list">
+
+
+                    <!-- 유튜브 -->
+
+                    <a
+                        href="https://www.youtube.com/@eunppo1220"
+                        class="official-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+
+                        <div class="official-link-icon">
+                            ▶
+                        </div>
+
+                        <div class="official-link-info">
+
+                            <span class="official-link-label">
+                                VIDEO
+                            </span>
+
+                            <span class="official-link-title">
+                                YouTube
+                            </span>
+
+                            <span class="official-link-description">
+                                최은뽀의 유튜브 채널
+                            </span>
+
+                        </div>
+
+                        <span class="official-link-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+<a
+                        href="https://www.youtube.com/@EUNPPOASMR"
+                        class="official-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+
+                        <div class="official-link-icon">
+                            ▶
+                        </div>
+
+                        <div class="official-link-info">
+
+                            <span class="official-link-label">
+                                VIDEO
+                            </span>
+
+                            <span class="official-link-title">
+                                YouTube
+                            </span>
+
+                            <span class="official-link-description">
+                                최은뽀의 ASMR 유튜브 채널
+                            </span>
+
+                        </div>
+
+                        <span class="official-link-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+<!-- =========================
+     FAN CAFE
+========================= -->
+
+<div class="links-section">
+
+    <div class="links-section-title">
+
+        <span>🍋</span>
+
+        <h2>
+            팬카페
+        </h2>
+
+    </div>
+
+
+    <div class="link-list">
+
+        <a
+            href="https://cafe.naver.com/fishmanisland"
+            class="official-link"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="official-link-icon">
+                ♡
+            </div>
+
+            <div class="official-link-info">
+
+                <span class="official-link-label">
+                    FAN COMMUNITY
+                </span>
+
+                <span class="official-link-title">
+                    팬카페
+                </span>
+
+                <span class="official-link-description">
+                    어인섬 팬카페
+                </span>
+
+            </div>
+
+            <span class="official-link-arrow">
+                →
+            </span>
+
+        </a>
+
+    </div>
+
+</div>
+                        <span class="official-link-arrow">
+                            
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="footer-lemon">
+            🍋
+        </div>
+
+        <p>
+            © 2026 EUNPPO PROFILE
+        </p>
+
+        <span>
+            Made with lemon & love.
+        </span>
+
+    </footer>
+
+
+</body>
+</html>
+```
